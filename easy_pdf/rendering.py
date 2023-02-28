@@ -1,6 +1,7 @@
 # coding=utf-8
-
 from __future__ import absolute_import, division, print_function, unicode_literals
+
+import io
 
 try:
     # noinspection PyUnresolvedReferences
@@ -12,7 +13,6 @@ from django.core.files.base import ContentFile
 from django.http import HttpResponse, HttpRequest
 from django.template import loader
 from django.utils.http import urlquote
-from django.utils.six import BytesIO
 from weasyprint import CSS, HTML, default_url_fetcher
 
 __all__ = [
@@ -58,7 +58,7 @@ def html_to_pdf(content, stylesheets=None, base_url=None, url_fetcher=default_ur
     """
 
     html = HTML(string=content, base_url=base_url, url_fetcher=url_fetcher, media_type=media_type)
-    dest = BytesIO()
+    dest = io.BytesIO()
     html.write_pdf(dest, stylesheets=stylesheets)
     return dest.getvalue()
 
