@@ -15,3 +15,5 @@ Pyphen>=0.9.4
 six>=1.10.0
 tinycss>=0.4
 webencodings>=0.5.1
+# Addresses pydyf constructor issue in weasyprint see https://github.com/frappe/frappe/pull/27149
+pydyf==0.10.0
