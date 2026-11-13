@@ -36,7 +36,7 @@ setup(
     include_package_data=True,
     install_requires=[
         "django>=1.8",
-        "WeasyPrint>=0.34"
+        "WeasyPrint>=68"
     ],
     zip_safe=False,
     keywords="django-easy-pdf",

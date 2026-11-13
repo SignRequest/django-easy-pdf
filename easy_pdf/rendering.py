@@ -13,7 +13,7 @@ from django.core.files.base import ContentFile
 from django.http import HttpResponse, HttpRequest
 from django.template import loader
 from urllib.parse import quote
-from weasyprint import CSS, HTML, default_url_fetcher
+from weasyprint import CSS, HTML
 
 __all__ = [
     'html_to_pdf', 'encode_filename', 'make_response',
@@ -23,8 +23,8 @@ __all__ = [
 CONTENT_TYPE = 'application/pdf'
 
 
-def html_to_pdf(content, stylesheets=None, base_url=None, url_fetcher=default_url_fetcher, media_type='print'):
-    # type: (Text, Optional[List[CSS]], Optional[Text], Callable, Text) -> bytes
+def html_to_pdf(content, stylesheets=None, base_url=None, url_fetcher=None, media_type='print'):
+    # type: (Text, Optional[List[CSS]], Optional[Text], Optional[Callable], Text) -> bytes
     """
     Converts HTML ``content`` into PDF document.
 
@@ -46,10 +46,9 @@ def html_to_pdf(content, stylesheets=None, base_url=None, url_fetcher=default_ur
     :param base_url:
             The base used to resolve relative URLs. See WeasyPrint docs.
     :param url_fetcher:
-            A function or other callable with the same signature
-            as :func:`weasyprint.default_url_fetcher` called to fetch external resources
-            such as stylesheets and images.
-            See https://weasyprint.readthedocs.io/en/latest/tutorial.html#url-fetchers.
+            A :class:`weasyprint.urls.URLFetcher` instance called to fetch external resources
+            such as stylesheets and images, or :obj:`None` to use WeasyPrint's default fetcher.
+            See https://doc.courtbouillon.org/weasyprint/stable/first_steps.html#url-fetchers.
     :param media_type:
             The media type to use for ``@media``. Defaults to ``'print'``.
 
